@@ -9,6 +9,7 @@ import           Data.String.Metric
 import           GHC.Exts
 import           System.Environment
 import           System.FilePath
+import           System.IO
 import           System.IO.Class
 import           System.Process
 
@@ -34,12 +35,13 @@ closeFilePath pwd (x:xs) = do
         Nothing  -> return Nothing
         Just foo -> return . Just $ joinPath [y, foo]
 
+usage :: IO ()
+usage = hPutStrLn stderr "usage: typo CMD PATHS..."
+
 main :: IO ()
 main = do
   args <- getArgs
   case args of
-    [] -> putStrLn "nothing to do"
-    [cmd] -> putStrLn $ "just run " ++ cmd
     (cmd:paths) -> do
       matches <- mapM (closeFilePath "." . splitDirectories) paths
       let suggestion = zipWith fromMaybe paths matches
@@ -51,3 +53,4 @@ main = do
           case answer of
             ('y':_) -> callProcess cmd suggestion
             _       -> return ()
+    _ -> usage
