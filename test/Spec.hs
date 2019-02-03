@@ -70,7 +70,7 @@ main = do
 
 testBestMatch :: Test
 testBestMatch =
-  TestCase $ assertEqual "" (bestMatch ["hello", "world"] "xxx") Nothing
+  TestCase $ assertEqual "" (bestMatch ["hello", "world"] "xxx") $ Just "world"
 
 testExists :: Test
 testExists =

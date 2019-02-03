@@ -6,7 +6,6 @@ module Typo
 
 import           Data.Maybe
 import           Data.String.Metric
-import           GHC.Exts
 import           System.Environment
 import           System.FilePath
 import           System.IO
@@ -17,10 +16,17 @@ import           System.Process
 bestMatch :: [String] -> String -> Maybe String
 bestMatch [] _ = Nothing
 bestMatch xs s =
-  let best = head $ sortWith (stringCompare s) xs
-   in if stringCompare s best == Different
-        then Nothing
-        else Just best
+  Just . fst . minimumWith snd $ map (\x -> (x, levenshtein s x)) xs
+
+--
+minimumWith :: Ord b => (a -> b) -> [a] -> a
+minimumWith _ [] = undefined
+minimumWith _ [x] = x
+minimumWith f (x:xs)
+  | f x < f m = x
+  | otherwise = m
+  where
+    m = minimumWith f xs
 
 closeFilePath ::
      MonadDirectory m => FilePath -> [FilePath] -> m (Maybe FilePath)
