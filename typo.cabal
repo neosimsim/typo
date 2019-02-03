@@ -1,14 +1,22 @@
 name:               typo
 version:            0.1.0
-synopsis:           ..
-description:        ...
+synopsis:           Command line wrapper suggesting file paths
+description:
+  Command line wrapper suggesting file paths.
+  > usage: typo cmd args...
+  @typo@ leaves the first argument as it is and interpretes it as the command to run.
+  The other arguments interpreted as file paths. `typo` processed the file system to find best matches.
+  Example:
+  > $ typo ls srd/data
+  > did you mean: ls ["app/Data"]
+  > y
+  > Argmax.hs  String
+
 homepage:           https://github.com/neosimsim/typo
 license:            BSD3
 license-file:       LICENSE
 author:             Alexander Ben Nasrallah
 maintainer:         me@abn.sh
-
--- copyright:
 category:           Misc
 build-type:         Simple
 extra-source-files: CHANGELOG.md
@@ -73,9 +81,7 @@ benchmark benchmarks
   type:             exitcode-stdio-1.0
   main-is:          Benchmark.hs
   hs-source-dirs:   bench app
-  other-modules:
-    Data.String.Metric
-
+  other-modules:    Data.String.Metric
   default-language: Haskell2010
   build-depends:
       base        >=4   && <5
