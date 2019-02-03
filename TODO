@@ -1,0 +1,2 @@
+- levenshtein: use cache with State monade
+- levenshtein: generalize to lists
