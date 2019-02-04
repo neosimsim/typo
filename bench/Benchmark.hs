@@ -3,7 +3,7 @@ module Main
   ) where
 
 import           Criterion.Main
-import           Data.String.Metric
+import           Data.Metric.Levenshtein
 
 main :: IO ()
 main =

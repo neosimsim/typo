@@ -5,7 +5,7 @@ module Typo
   ) where
 
 import           Data.Maybe
-import           Data.String.Metric
+import           Data.Metric.Levenshtein
 import           System.Environment
 import           System.FilePath
 import           System.IO

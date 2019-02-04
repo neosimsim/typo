@@ -1,15 +1,15 @@
-module Data.String.Metric
+module Data.Metric.Levenshtein
   ( levenshtein
   ) where
 
 import qualified Data.Map.Strict as Map
 
-levenshtein :: String -> String -> Int
+levenshtein :: (Eq a) => [a] -> [a] -> Int
 levenshtein s1 s2 = d
   where
     (d, _) = _levenshtein Map.empty s1 s2 0 0
 
-_levenshtein :: Cache -> String -> String -> Int -> Int -> (Int, Cache)
+_levenshtein :: (Eq a) => Cache -> [a] -> [a] -> Int -> Int -> (Int, Cache)
 _levenshtein cache [] y idx idy =
   (length y, Map.insert (idx, idy) (length y) cache)
 _levenshtein cache x [] idx idy =
@@ -25,9 +25,9 @@ type Cache = Map.Map (Int, Int) Int
 
 fromCache ::
      Cache
-  -> (Cache -> String -> String -> Int -> Int -> (Int, Cache))
-  -> String
-  -> String
+  -> (Cache -> a -> b -> Int -> Int -> (Int, Cache))
+  -> a
+  -> b
   -> Int
   -> Int
   -> (Int, Cache)

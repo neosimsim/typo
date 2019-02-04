@@ -4,13 +4,13 @@ module Main
 
 import           Control.Monad
 import           Data.Argmax
-import           Data.String.Metric
+import           Data.Metric.Levenshtein
 import           Data.Tree
 import           System.Exit
 import           System.IO.Class
 import           Test.HUnit
 import           Test.QuickCheck
-import           Typo               hiding (main)
+import           Typo                    hiding (main)
 
 argminProjection :: [Integer] -> Integer -> Integer
 argminProjection xs y = argmin xs (\z -> abs (z - y))
